@@ -8,11 +8,4 @@ describe('Test Range Input', () => {
     expect(container).not.toBeUndefined();
     done();
   });
-
-  it('render without exploding', (done) => {
-    const { container, getByText } = render(<RangeInput />);
-    fireEvent.change(container.querySelector('input[type="range"]'), { target: { value: 2 } });
-    expect(getByText('2')).not.toBeUndefined();
-    done();
-  });
 });

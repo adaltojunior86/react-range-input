@@ -10,14 +10,21 @@ const useRangeInputContainer = () => {
   const onChangeRangeValues = ({ target: { name, value } }) => {
     setRangeValues({ ...rangeValues, [name]: parseInt(value || 0, 10) });
   };
-  return [
-    rangeValues,
-    onChangeRangeValues,
-  ];
+  return [rangeValues, onChangeRangeValues];
+};
+
+const useRangeInput = min => {
+  const [rangeValue, setRangeValue] = useState(min);
+  const onChangeValue = ({ target: { value } }) => {
+    setRangeValue(parseInt(value, 10));
+  };
+  return [rangeValue, onChangeValue];
 };
 
 const RangeInputContainer = () => {
   const [{ min, max, step }, onChangeRangeValues] = useRangeInputContainer();
+  const [rangeValue, onChangeValue] = useRangeInput(min);
+
   return (
     <Fragment>
       <div>
@@ -34,7 +41,8 @@ const RangeInputContainer = () => {
           <input type="text" name="step" id="step" onChange={onChangeRangeValues} value={step} />
         </label>
       </div>
-      <RangeInput min={min} max={max} step={step} />
+      <RangeInput min={min} max={max} step={step} onChangeRangeValues={onChangeValue} value={rangeValue} />
+      <div>R$ {rangeValue}</div>
     </Fragment>
   );
 };

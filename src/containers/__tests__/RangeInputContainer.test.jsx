@@ -27,4 +27,11 @@ describe('Test Range Input', () => {
     expect(container.querySelector('input[name="min"]').value).toEqual('0');
     done();
   });
+
+  it('render without exploding', (done) => {
+    const { container, getByText } = render(<RangeInputContainer />);
+    fireEvent.change(container.querySelector('input[type="range"]'), { target: { value: 2 } });
+    expect(getByText('2')).not.toBeUndefined();
+    done();
+  });
 });
